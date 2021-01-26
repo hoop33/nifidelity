@@ -1,0 +1,22 @@
+{
+  "name": "nifidelity",
+  "version": "0.0.1",
+  "description": "Validates and generates documentation for NiFi data flows.",
+  "bin": {
+    "nifidelity": "./bin/index.js"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Rob Warner",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "commander": "^7.0.0",
+    "js-yaml": "^4.0.0"
+  },
+  "devDependencies": {
+    "jest": "^26.6.3",
+    "mock-fs": "^4.13.0"
+  }
+}
