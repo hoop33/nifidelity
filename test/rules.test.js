@@ -1,4 +1,4 @@
-const { validateBucket } = require("./../lib/rules");
+const { validateBucket, validateFlow } = require("./../lib/rules");
 
 describe("validateBucket", () => {
   it("should fail when bucket is not defined", () => {
@@ -30,6 +30,67 @@ describe("validateBucket", () => {
   it("should pass when bucket is valid", () => {
     expect(
       validateBucket({ bucketId: "abc-123", path: "abc/123" }).passes()
+    ).toBeTruthy();
+  });
+});
+
+describe("validateFlow", () => {
+  it("should fail when flow is not defined", () => {
+    expect(validateFlow().fails()).toBeTruthy();
+  });
+
+  it("should fail when flow is empty", () => {
+    expect(validateFlow({}).fails()).toBeTruthy();
+  });
+
+  it("should fail when flow has no id", () => {
+    expect(
+      validateFlow({
+        name: "my flow",
+        description: "my description",
+        comments: "my comments",
+        version: 1,
+        file: "my_file.snapshot",
+      }).fails()
+    ).toBeTruthy();
+  });
+
+  it("should fail when flow has invalid id", () => {
+    expect(
+      validateFlow({
+        id: "?",
+        name: "my flow",
+        description: "my description",
+        comments: "my comments",
+        version: 1,
+        file: "my_file.snapshot",
+      }).fails()
+    ).toBeTruthy();
+  });
+
+  it("should fail when flow name is too short", () => {
+    expect(
+      validateFlow({
+        id: "abc-123",
+        name: "my",
+        description: "my description",
+        comments: "my comments",
+        version: 1,
+        file: "my_file.snapshot",
+      }).fails()
+    ).toBeTruthy();
+  });
+
+  it("should pass when flow is valid", () => {
+    expect(
+      validateFlow({
+        id: "abc-123",
+        name: "my name",
+        description: "my description",
+        comments: "my comments",
+        version: 1,
+        file: "my_file.snapshot",
+      }).passes()
     ).toBeTruthy();
   });
 });
