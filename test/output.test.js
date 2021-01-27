@@ -13,6 +13,11 @@ describe("createOutput", () => {
         "hello.txt": "hello",
       },
     });
+    fs.createWriteStream = function (path, options) {
+      return {
+        write: function () {},
+      };
+    };
     expect(() => {
       createOutput("/var");
     }).toThrow("output directory '/var' not empty");
@@ -24,11 +29,21 @@ describe("createOutput", () => {
         "hello.txt": "hello",
       },
     });
+    fs.createWriteStream = function (path, options) {
+      return {
+        write: function () {},
+      };
+    };
     expect(createOutput("/var", true)).toBeTruthy();
   });
 
   it("should create output directory when it does not exist", () => {
     mock();
+    fs.createWriteStream = function (path, options) {
+      return {
+        write: function () {},
+      };
+    };
     expect(fs.existsSync("foo")).toBeFalsy();
     expect(createOutput("foo")).toBeTruthy();
     expect(fs.existsSync("foo")).toBeTruthy();
