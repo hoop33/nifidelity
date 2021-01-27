@@ -6,7 +6,7 @@
     "nifidelity": "./bin/index.js"
   },
   "scripts": {
-    "test": "jest --collect-coverage"
+    "test": "jest"
   },
   "author": "Rob Warner",
   "license": "MIT",
@@ -19,5 +19,11 @@
   "devDependencies": {
     "jest": "^26.6.3",
     "mock-fs": "^4.13.0"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "lib/**/*.js"
+    ]
   }
 }
