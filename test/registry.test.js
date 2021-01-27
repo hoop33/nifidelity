@@ -1,11 +1,15 @@
 const mock = require("mock-fs");
-const { getBuckets } = require("../lib/registry");
+const { getBuckets, getFlows } = require("../lib/registry");
 
 afterEach(() => {
   mock.restore();
 });
 
 describe("getBuckets", () => {
+  it("should return empty when no source", () => {
+    expect(getBuckets()).toEqual([]);
+  });
+
   it("should return empty when no directories", () => {
     mock({
       "/var": {},
@@ -77,6 +81,72 @@ bucketId: 2d3a0236-0a90-4369-8cf8-95ec672718e6
     const flow = bucket.flows["fffc7f99-adf0-4a4e-8a19-abbfd1bf915f"];
     expect(flow).not.toBe(null);
     expect(flow.ver).toBe(2);
+    expect(flow.file).toBe("Shout_It_Out.snapshot");
+  });
+});
+
+describe("getFlows", () => {
+  it("should return empty when no bucket", () => {
+    expect(getFlows()).toEqual([]);
+  });
+
+  it("should return empty when no flows", () => {
+    expect(getFlows({})).toEqual([]);
+  });
+
+  it("should return empty when empty flows", () => {
+    expect(getFlows({ flows: [] })).toEqual([]);
+  });
+
+  it("should return flows when bucket has flows", () => {
+    const flows = getFlows({
+      flows: {
+        "fffc7f99-adf0-4a4e-8a19-abbfd1bf915f": {
+          ver: 2,
+          file: "Shout_It_Out.snapshot",
+          comments: "feat: don't ignore hidden files",
+          author: "anonymous",
+          created: 1611685692748,
+          flowName: "Shout It Out",
+          flowDesc:
+            "This flow monitors an input directory for new files, converts them to social shouting, and moves the resulting FlowFiles to an output directory.",
+        },
+        "279212ae-c2c1-4c84-958f-d8d07b47296d": {
+          ver: 1,
+          file: "Textual_Playground.snapshot",
+          comments: "Initial version",
+          author: "anonymous",
+          created: 1611684019396,
+          flowName: "Textual Playground",
+          flowDesc: "Contains other processor groups that play with text.",
+        },
+      },
+    });
+    expect(flows.length).toBe(2);
+  });
+
+  it("should return proper fields when bucket has flows", () => {
+    const flow = getFlows({
+      flows: {
+        "fffc7f99-adf0-4a4e-8a19-abbfd1bf915f": {
+          ver: 2,
+          file: "Shout_It_Out.snapshot",
+          comments: "feat: don't ignore hidden files",
+          author: "anonymous",
+          created: 1611685692748,
+          flowName: "Shout It Out",
+          flowDesc:
+            "This flow monitors an input directory for new files, converts them to social shouting, and moves the resulting FlowFiles to an output directory.",
+        },
+      },
+    })[0];
+    expect(flow.id).toBe("fffc7f99-adf0-4a4e-8a19-abbfd1bf915f");
+    expect(flow.version).toBe(2);
+    expect(flow.name).toBe("Shout It Out");
+    expect(flow.description).toBe(
+      "This flow monitors an input directory for new files, converts them to social shouting, and moves the resulting FlowFiles to an output directory."
+    );
+    expect(flow.comments).toBe("feat: don't ignore hidden files");
     expect(flow.file).toBe("Shout_It_Out.snapshot");
   });
 });

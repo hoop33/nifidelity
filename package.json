@@ -6,7 +6,7 @@
     "nifidelity": "./bin/index.js"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest --collect-coverage"
   },
   "author": "Rob Warner",
   "license": "MIT",
