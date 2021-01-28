@@ -50,6 +50,47 @@ describe("createOutput", () => {
   });
 });
 
+describe("output.writeBucket", () => {
+  it("should not throw when bucket is not specified", () => {
+    mock();
+    fs.createWriteStream = function (path, options) {
+      return {
+        write: function () {},
+      };
+    };
+    const out = createOutput("foo");
+    expect(() => {
+      out.writeBucket();
+    }).not.toThrow();
+  });
+
+  it("should not throw when bucket is empty", () => {
+    mock();
+    fs.createWriteStream = function (path, options) {
+      return {
+        write: function () {},
+      };
+    };
+    const out = createOutput("foo");
+    expect(() => {
+      out.writeBucket({});
+    }).not.toThrow();
+  });
+
+  it("should not throw when bucket is specified", () => {
+    mock();
+    fs.createWriteStream = function (path, options) {
+      return {
+        write: function () {},
+      };
+    };
+    const out = createOutput("foo");
+    expect(() => {
+      out.writeBucket({ bucketId: "123" }, [{ name: "foo", fileName: "bar" }]);
+    }).not.toThrow();
+  });
+});
+
 describe("output.writeErrors", () => {
   it("should not throw when errors is not specified", () => {
     mock();
