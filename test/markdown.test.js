@@ -1,4 +1,22 @@
-const { toHeader, toList } = require("./../lib/markdown");
+const { toBlockquote, toHeader, toList } = require("./../lib/markdown");
+
+describe("toBlockquote", () => {
+  it("should be blank when text not specified", () => {
+    expect(toBlockquote()).toBe("");
+  });
+
+  it("should format correctly when text is specified", () => {
+    expect(toBlockquote("hello")).toBe("> hello\n\n");
+  });
+
+  it("should start each line with gt when multiline", () => {
+    expect(toBlockquote("hello\nhi\nhow are you?")).toBe(`> hello
+> hi
+> how are you?
+
+`);
+  });
+});
 
 describe("toHeader", () => {
   it("should be blank when text not specified", () => {
