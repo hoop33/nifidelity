@@ -49,3 +49,44 @@ describe("createOutput", () => {
     expect(fs.existsSync("foo")).toBeTruthy();
   });
 });
+
+describe("output.writeErrors", () => {
+  it("should not throw when errors is not specified", () => {
+    mock();
+    fs.createWriteStream = function (path, options) {
+      return {
+        write: function () {},
+      };
+    };
+    const out = createOutput("foo");
+    expect(() => {
+      out.writeErrors();
+    }).not.toThrow();
+  });
+
+  it("should not throw when errors is empty", () => {
+    mock();
+    fs.createWriteStream = function (path, options) {
+      return {
+        write: function () {},
+      };
+    };
+    const out = createOutput("foo");
+    expect(() => {
+      out.writeErrors("foo", "bar", {});
+    }).not.toThrow();
+  });
+
+  it("should not throw when errors is specified", () => {
+    mock();
+    fs.createWriteStream = function (path, options) {
+      return {
+        write: function () {},
+      };
+    };
+    const out = createOutput("foo");
+    expect(() => {
+      out.writeErrors("foo", "bar", { f1: ["e1", "e2"], f2: ["e3", "e4"] });
+    }).not.toThrow();
+  });
+});
