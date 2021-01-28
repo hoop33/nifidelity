@@ -1,4 +1,10 @@
-const { toBlockquote, toHeader, toList } = require("./../lib/markdown");
+const {
+  toBlockquote,
+  toBold,
+  toHeader,
+  toItalic,
+  toList,
+} = require("./../lib/markdown");
 
 describe("toBlockquote", () => {
   it("should be blank when text not specified", () => {
@@ -18,6 +24,16 @@ describe("toBlockquote", () => {
   });
 });
 
+describe("toBold", () => {
+  it("should be blank when text not specified", () => {
+    expect(toBold()).toBe("");
+  });
+
+  it("should be in bold format when specified", () => {
+    expect(toBold("hello")).toBe("**hello**");
+  });
+});
+
 describe("toHeader", () => {
   it("should be blank when text not specified", () => {
     expect(toHeader()).toBe("");
@@ -29,6 +45,16 @@ describe("toHeader", () => {
 
   it("should format level correctly when specified", () => {
     expect(toHeader("Hello", 4)).toBe("#### Hello\n\n");
+  });
+});
+
+describe("toItalic", () => {
+  it("should be blank when text not specified", () => {
+    expect(toItalic()).toBe("");
+  });
+
+  it("should be in italic format when specified", () => {
+    expect(toItalic("hello")).toBe("_hello_");
   });
 });
 
