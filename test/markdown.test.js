@@ -4,6 +4,8 @@ const {
   toHeader,
   toItalic,
   toList,
+  toTableHeader,
+  toTableRow,
 } = require("./../lib/markdown");
 
 describe("toBlockquote", () => {
@@ -68,6 +70,39 @@ describe("toList", () => {
 * baker
 * charlie
 
+`);
+  });
+});
+
+describe("toTableHeader", () => {
+  it("should be blank when array not specified", () => {
+    expect(toTableHeader()).toBe("");
+  });
+
+  it("should be blank when array is empty", () => {
+    expect(toTableHeader([])).toBe("");
+  });
+
+  it("should have fields when array is specified", () => {
+    expect(toTableHeader(["apple", "baker", "charlie"]))
+      .toBe(`| apple | baker | charlie |
+| --- | --- | --- |
+`);
+  });
+});
+
+describe("toTableRow", () => {
+  it("should be blank when array not specified", () => {
+    expect(toTableRow()).toBe("");
+  });
+
+  it("should be blank when array is empty", () => {
+    expect(toTableRow([])).toBe("");
+  });
+
+  it("should have fields when array is specified", () => {
+    expect(toTableRow(["apple", "baker", "charlie"]))
+      .toBe(`| apple | baker | charlie |
 `);
   });
 });
