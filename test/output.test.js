@@ -90,3 +90,44 @@ describe("output.writeErrors", () => {
     }).not.toThrow();
   });
 });
+
+describe("output.writeFlow", () => {
+  it("should not throw when flow is not specified", () => {
+    mock();
+    fs.createWriteStream = function (path, options) {
+      return {
+        write: function () {},
+      };
+    };
+    const out = createOutput("foo");
+    expect(() => {
+      out.writeFlow();
+    }).not.toThrow();
+  });
+
+  it("should not throw when flow is empty", () => {
+    mock();
+    fs.createWriteStream = function (path, options) {
+      return {
+        write: function () {},
+      };
+    };
+    const out = createOutput("foo");
+    expect(() => {
+      out.writeFlow({});
+    }).not.toThrow();
+  });
+
+  it("should not throw when flow is specified", () => {
+    mock();
+    fs.createWriteStream = function (path, options) {
+      return {
+        write: function () {},
+      };
+    };
+    const out = createOutput("foo");
+    expect(() => {
+      out.writeFlow({ id: "123", name: "my name" });
+    }).not.toThrow();
+  });
+});
