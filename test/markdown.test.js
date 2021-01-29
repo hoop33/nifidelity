@@ -2,6 +2,7 @@ const {
   toBlockquote,
   toBold,
   toHeader,
+  toInlineCode,
   toItalic,
   toList,
   toTableHeader,
@@ -47,6 +48,16 @@ describe("toHeader", () => {
 
   it("should format level correctly when specified", () => {
     expect(toHeader("Hello", 4)).toBe("#### Hello\n\n");
+  });
+});
+
+describe("toInlineCode", () => {
+  it("should be blank when text not specified", () => {
+    expect(toInlineCode()).toBe("");
+  });
+
+  it("should be in inline code format when specified", () => {
+    expect(toInlineCode("hello")).toBe("`hello`");
   });
 });
 

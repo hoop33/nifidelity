@@ -81,7 +81,6 @@ bucketId: 2d3a0236-0a90-4369-8cf8-95ec672718e6
     const flow = bucket.flows["fffc7f99-adf0-4a4e-8a19-abbfd1bf915f"];
     expect(flow).not.toBe(null);
     expect(flow.ver).toBe(2);
-    expect(flow.file).toBe("Shout_It_Out.snapshot");
   });
 });
 
@@ -99,7 +98,16 @@ describe("getFlows", () => {
   });
 
   it("should return flows when bucket has flows", () => {
+    mock({
+      "/var": {
+        bucket: {
+          "Shout_It_Out.snapshot": "{}",
+          "Textual_Playground.snapshot": "{}",
+        },
+      },
+    });
     const flows = getFlows({
+      path: "/var/bucket",
       flows: {
         "fffc7f99-adf0-4a4e-8a19-abbfd1bf915f": {
           ver: 2,
@@ -126,7 +134,15 @@ describe("getFlows", () => {
   });
 
   it("should return proper fields when bucket has flows", () => {
+    mock({
+      "/var": {
+        bucket: {
+          "Shout_It_Out.snapshot": "{}",
+        },
+      },
+    });
     const flow = getFlows({
+      path: "/var/bucket",
       flows: {
         "fffc7f99-adf0-4a4e-8a19-abbfd1bf915f": {
           ver: 2,
@@ -147,6 +163,5 @@ describe("getFlows", () => {
       "This flow monitors an input directory for new files, converts them to social shouting, and moves the resulting FlowFiles to an output directory."
     );
     expect(flow.comments).toBe("feat: don't ignore hidden files");
-    expect(flow.file).toBe("Shout_It_Out.snapshot");
   });
 });
