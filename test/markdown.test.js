@@ -1,6 +1,7 @@
 const {
   toBlockquote,
   toBold,
+  toFrontMatter,
   toHeader,
   toInlineCode,
   toItalic,
@@ -34,6 +35,20 @@ describe("toBold", () => {
 
   it("should be in bold format when specified", () => {
     expect(toBold("hello")).toBe("**hello**");
+  });
+});
+
+describe("toFrontMatter", () => {
+  it("should be blank when map not specified", () => {
+    expect(toFrontMatter()).toBe("");
+  });
+
+  it("should have front matter when map is specified", () => {
+    const fm = toFrontMatter({ id: "hello", title: "Hello" });
+    expect(fm.startsWith("---\n")).toBeTruthy();
+    expect(fm.includes("id: hello\n")).toBeTruthy();
+    expect(fm.includes("title: Hello\n")).toBeTruthy();
+    expect(fm.endsWith("---\n")).toBeTruthy();
   });
 });
 
