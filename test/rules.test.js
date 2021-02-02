@@ -90,6 +90,15 @@ describe("validateFlow", () => {
         comments: "my comments",
         version: 1,
         file: "my_file.snapshot",
+        contents: {
+          content: {
+            flowSnapshot: {
+              flowContents: {
+                comments: "This is some comment",
+              },
+            },
+          },
+        },
       }).passes()
     ).toBeTruthy();
   });
