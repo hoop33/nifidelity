@@ -1,6 +1,7 @@
 const {
   toBlockquote,
   toBold,
+  toCodeBlock,
   toFrontMatter,
   toHeader,
   toInlineCode,
@@ -35,6 +36,28 @@ describe("toBold", () => {
 
   it("should be in bold format when specified", () => {
     expect(toBold("hello")).toBe("**hello**");
+  });
+});
+
+describe("toCodeBlock", () => {
+  it("should be blank when text not specified", () => {
+    expect(toCodeBlock()).toBe("");
+  });
+
+  it("should be in code block format when no lang is specified", () => {
+    expect(toCodeBlock(`print("Hello World")`)).toBe(`\`\`\`
+print("Hello World")
+\`\`\`
+
+`);
+  });
+
+  it("should be in code block format when lang is specified", () => {
+    expect(toCodeBlock(`print("Hello World")`, "python")).toBe(`\`\`\`python
+print("Hello World")
+\`\`\`
+
+`);
   });
 });
 
