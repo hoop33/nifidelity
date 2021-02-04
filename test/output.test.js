@@ -86,7 +86,10 @@ describe("output.writeBucket", () => {
     };
     const out = createOutput("foo");
     expect(() => {
-      out.writeBucket({ bucketId: "123" }, [{ name: "foo", fileName: "bar" }]);
+      out.writeBucket({ bucketId: "123" }, [
+        { name: "foo", fileName: "bar" },
+        { name: "a", fileName: "b", errors: true },
+      ]);
     }).not.toThrow();
   });
 });
@@ -127,7 +130,10 @@ describe("output.writeErrors", () => {
     };
     const out = createOutput("foo");
     expect(() => {
-      out.writeErrors("foo", "bar", { f1: ["e1", "e2"], f2: ["e3", "e4"] });
+      out.writeErrors("foo", "bar", "baz", {
+        f1: ["e1", "e2"],
+        f2: ["e3", "e4"],
+      });
     }).not.toThrow();
   });
 });
