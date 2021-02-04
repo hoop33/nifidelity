@@ -5,8 +5,10 @@ const {
   toCodeBlock,
   toFrontMatter,
   toHeader,
+  toHtmlLink,
   toInlineCode,
   toItalic,
+  toLink,
   toList,
   toTableHeader,
   toTableRow,
@@ -100,6 +102,12 @@ describe("toHeader", () => {
   });
 });
 
+describe("toHtmlLink", () => {
+  it("should create a link", () => {
+    expect(toHtmlLink("a", "b")).toBe("<a href='b'>a</a>");
+  });
+});
+
 describe("toInlineCode", () => {
   it("should be blank when text not specified", () => {
     expect(toInlineCode()).toBe("");
@@ -117,6 +125,12 @@ describe("toItalic", () => {
 
   it("should be in italic format when specified", () => {
     expect(toItalic("hello")).toBe("_hello_");
+  });
+});
+
+describe("toLink", () => {
+  it("should create a link", () => {
+    expect(toLink("a", "b")).toBe("[a](b)");
   });
 });
 

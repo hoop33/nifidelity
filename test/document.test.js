@@ -81,6 +81,7 @@ _Version 3: This is a test_
               },
               {
                 name: "My Proc 2",
+                identifier: "123",
                 bundle: {
                   artifact: "my-nar",
                   version: "1.0.0",
@@ -104,7 +105,9 @@ _Version 3: This is a test_
 
 ### My Proc 1
 
-### My Proc 2
+### <a name="123"></a>My Proc 2
+
+_123_
 
 > My comments
 
@@ -264,7 +267,7 @@ _Version 3: This is a test_
     );
     expect(
       doc.includes(`START graph TB
-123[a]-->|foo, bar|456[b]
+123[<a href='#123'>a</a>]-->|foo, bar|456[<a href='#456'>b</a>]
  STOP`)
     ).toBeTruthy();
   });
@@ -301,7 +304,7 @@ _Version 3: This is a test_
     );
     expect(
       doc.includes(`START graph TB
-123[a]-->||456[b]
+123[<a href='#123'>a</a>]-->||456[<a href='#456'>b</a>]
  STOP`)
     ).toBeTruthy();
   });
