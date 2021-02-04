@@ -33,7 +33,7 @@ Example rules file:
     "name": "required|string|min:4",
     "description": "required|string|min:6",
     "comments": "required|string|min:6",
-    "contents.content.flowSnapshot.flowContents.comments":
+    "content.flowSnapshot.flowContents.comments":
       "required|string|min:6",
   },
 }
