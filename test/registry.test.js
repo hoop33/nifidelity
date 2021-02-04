@@ -164,4 +164,58 @@ describe("getFlows", () => {
     );
     expect(flow.comments).toBe("feat: don't ignore hidden files");
   });
+
+  it("should return unknown for name when name not specified", () => {
+    mock({
+      "/var": {
+        bucket: {
+          "Shout_It_Out.snapshot": "{}",
+        },
+      },
+    });
+    const flow = getFlows({
+      path: "/var/bucket",
+      flows: {
+        "fffc7f99-adf0-4a4e-8a19-abbfd1bf915f": {
+          ver: 2,
+          file: "Shout_It_Out.snapshot",
+          comments: "feat: don't ignore hidden files",
+          author: "anonymous",
+          created: 1611685692748,
+          flowDesc:
+            "This flow monitors an input directory for new files, converts them to social shouting, and moves the resulting FlowFiles to an output directory.",
+        },
+      },
+    })[0];
+    expect(flow.name).toBe("(unknown)");
+  });
+
+  it("should parse content when content", () => {
+    mock({
+      "/var": {
+        bucket: {
+          "Shout_It_Out.snapshot": `{
+  "content": {
+    "name": "foo"
+  }
+}`,
+        },
+      },
+    });
+    const flow = getFlows({
+      path: "/var/bucket",
+      flows: {
+        "fffc7f99-adf0-4a4e-8a19-abbfd1bf915f": {
+          ver: 2,
+          file: "Shout_It_Out.snapshot",
+          comments: "feat: don't ignore hidden files",
+          author: "anonymous",
+          created: 1611685692748,
+          flowDesc:
+            "This flow monitors an input directory for new files, converts them to social shouting, and moves the resulting FlowFiles to an output directory.",
+        },
+      },
+    })[0];
+    expect(flow.content.name).toBe("foo");
+  });
 });
