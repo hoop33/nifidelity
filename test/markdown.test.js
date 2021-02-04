@@ -1,4 +1,5 @@
 const {
+  toAnchor,
   toBlockquote,
   toBold,
   toCodeBlock,
@@ -10,6 +11,16 @@ const {
   toTableHeader,
   toTableRow,
 } = require("./../lib/markdown");
+
+describe("toAnchor", () => {
+  it("should be blank when text not specified", () => {
+    expect(toAnchor()).toBe("");
+  });
+
+  it("should format correctly when text is specified", () => {
+    expect(toAnchor("foo")).toBe(`<a name="foo"></a>`);
+  });
+});
 
 describe("toBlockquote", () => {
   it("should be blank when text not specified", () => {
