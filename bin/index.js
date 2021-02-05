@@ -12,7 +12,7 @@ program.option(
   "-m, --mermaid <template_file>",
   "file containing mermaid template for flow diagrams (use CONTENTS in template for content placement)"
 );
-program.option("-r, --rules <rules_file>", "rules file in Validate.js format");
+program.option("-r, --rules <rules_file>", "rules file in validatorjs format");
 program.option(
   "-O, --overwrite",
   "overwrite files in the output directory",
