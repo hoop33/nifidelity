@@ -4,8 +4,9 @@
 name: Node.js Package
 
 on:
-  release:
-    types: [created]
+  push:
+    branches:
+      - main
 
 jobs:
   build:
@@ -17,18 +18,15 @@ jobs:
           node-version: 12
       - run: npm ci
       - run: npm test
-
-  publish-npm:
-    needs: build
+  
+  release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: 12
-          registry-url: https://registry.npmjs.org/
       - run: npm ci
-      - run: npm publish
+      - run: npx semantic-release
         env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
-
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
