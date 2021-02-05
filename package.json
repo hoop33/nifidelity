@@ -1,6 +1,6 @@
 {
   "name": "nifidelity",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Validates and generates documentation for NiFi data flows.",
   "bin": {
     "nifidelity": "./bin/index.js"
