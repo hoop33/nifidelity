@@ -20,7 +20,7 @@ describe("toAnchor", () => {
   });
 
   it("should format correctly when text is specified", () => {
-    expect(toAnchor("foo")).toBe(`<a name="foo"></a>`);
+    expect(toAnchor("foo")).toBe(`<a id="foo"></a>`);
   });
 });
 

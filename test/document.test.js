@@ -105,7 +105,7 @@ _Version 3: This is a test_
 
 ### My Proc 1
 
-### <a name="123"></a>My Proc 2
+### <a id="123"></a>My Proc 2
 
 _123_
 
